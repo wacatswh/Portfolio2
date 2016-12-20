@@ -32,10 +32,19 @@ namespace NMEA
 		while(logFile)
 		{
 			logFile >> sentence;
-			if(p3b(sentence, "GPGLL"))
+
+			if (p3b(sentence, "GPGLL"))
 				logVec.push_back(sentence);
+
+			else if (p3b(sentence, "GPGGA"))
+				continue; // no operation for now 
+
+			else if (p3b(sentence, "GPGSA"))
+				continue; // no operation for now
+
+			// else if with any other NMEA sentence type if needed
 		}
-	
+
 		return logVec;
     }
 
@@ -78,6 +87,16 @@ namespace NMEA
 				tokenFlag++;
 			}
 		}
+
+		//else if (p3b(tempSentence, "GPGGA"))
+		//{
+		//	// operation for GPGGA sentence coming soon
+		//}
+
+		//else if (p3b(tempSentence, "GPGSA"))
+		//{
+		//	// operation for GPGSA sentence coming soon
+		//}
 
 		Posn objPosn(lat, lon);
 		return objPosn;
